@@ -1,36 +1,36 @@
 import type { Player } from "./Player_model";
 import type { Hand } from "./Hand_model";
 import { createHand } from "./Hand_model";
+import { h } from "vue";
 
 export type GameState = "ONGOING" | "ENDED";
 
 export type Game = {
-  /** The Players*/
   players: Player[];
-  /** Gets the current hand*/
   getCurrentHand: () => Hand | null;
-  /** Target score needed to win the game */
   targetScore: number;
-  /** Start a new hand */
+  hands: Hand[];
   startNewHand: () => void;
-  /** Updates the players' scores after each hand */
   updateScores: () => void;
-  /** Checks if the game is over based on the players' scores */
   isGameOver: () => boolean;
-  /** Returns the winner of the game */
   getWinner: () => Player | null;
-  /** Starts the game*/
-  playGame: () => void;
+  addHand: (hand: Hand) => void;
 };
 
 export const createGame = (players: Player[], targetScore = 500): Game => {
   let currentHand: Hand | null = null;
+  let hands: Hand[] = [];
+
   console.log("players", players);
 
   const startNewHand = (): void => {
     console.log("\n--- A new hand begins! ---\n");
     currentHand = createHand(players);
     currentHand.nextTurn();
+  };
+
+  const addHand = (hand: Hand): void => {
+    hands.push(hand);
   };
 
   const updateScores = () => {
@@ -57,21 +57,6 @@ export const createGame = (players: Player[], targetScore = 500): Game => {
     return players.find((player) => player.score >= targetScore) || null;
   };
 
-  const playGame = (): void => {
-    console.log("\n--- The game begins! ---\n");
-
-    while (!isGameOver()) {
-      startNewHand();
-      while (!currentHand?.isHandOver()) {}
-      updateScores();
-    }
-
-    const winner = getWinner();
-    if (winner) {
-      console.log(`\n--- Game Over! ${winner.name} wins the game! ---\n`);
-    }
-  };
-
   const getCurrentHand = (): Hand | null => {
     return currentHand;
   };
@@ -84,11 +69,12 @@ export const createGame = (players: Player[], targetScore = 500): Game => {
     updateScores,
     isGameOver,
     getWinner,
-    playGame,
+    hands,
+    addHand,
   };
 };
 
-const pointCalculator = (players: Player[], winner: Player): number => {
+export const pointCalculator = (players: Player[], winner: Player): number => {
   let totalPoints = 0;
 
   players.forEach((player) => {

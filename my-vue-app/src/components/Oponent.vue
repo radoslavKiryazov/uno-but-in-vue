@@ -41,7 +41,6 @@
 import { defineProps, computed } from "vue";
 import type { Player } from "../model/Player_model";
 import { useGameStore } from "../stores/gameStore";
-
 const gameStore = useGameStore();
 const playerAtHandIndex = computed(() => gameStore.playerAtHandIndex);
 const props = defineProps<{

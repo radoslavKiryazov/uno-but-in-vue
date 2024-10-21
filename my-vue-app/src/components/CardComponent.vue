@@ -1,8 +1,9 @@
 <template>
   <img
     :src="cardImage"
-    class="max-h-[200px] max-w-[200px] hover:animate-pulse cursor-pointer"
+    class="max-h-[200px] max-w-[200px] hover:animate-pulse cursor-pointer animate-fade-up animate-ease-in-out"
     @click="onClick"
+    :key="cardImage"
   />
 </template>
 

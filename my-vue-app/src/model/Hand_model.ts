@@ -43,14 +43,17 @@ export const createHand = (players: Player[]): Hand => {
   let discardPile: Card[] = [{ type: "NUMBERED", colour: "Blue", value: 1 }];
   let currentTopCard: Card;
 
-  do {
-    currentTopCard = deck.deal(1)[0];
-    discardPile.push(currentTopCard);
-  } while (currentTopCard.type !== "NUMBERED");
+  // do {
+  //   currentTopCard = deck.deal(1)[0];
+  //   discardPile.push(currentTopCard);
+  // } while (currentTopCard.type !== "NUMBERED");
 
   console.log("Dealing 7 cards to each player...\n");
   players.forEach((player) => {
-    player.hand = deck.deal(7);
+    player.hand = [
+      { type: "NUMBERED", colour: "Blue", value: 1 },
+      { type: "NUMBERED", colour: "Blue", value: 2 },
+    ];
   });
 
   let currentTurnIndex: number = 0;

@@ -16,11 +16,11 @@
             v-model="store.playerName"
             type="text"
             required
-            class="w-full"
+            class="w-full px-1"
           />
 
           <label for="botCount">Number of Bots: </label>
-          <select v-model="botCount" required class="w-full">
+          <select v-model="botCount" required class="w-full px-1">
             <option value="1">1 Bot</option>
             <option value="2">2 Bots</option>
             <option value="3">3 Bots</option>

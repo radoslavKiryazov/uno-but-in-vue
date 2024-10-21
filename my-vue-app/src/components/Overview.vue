@@ -1,16 +1,19 @@
 <template>
-  <div class="flex flex-col justify-center items-center space-y-3">
-    <div class="flex flex-row space-x-2">
-      <DiscardPile />
-      <Deck />
+  <div class="flex flex-row justify-center items-center gap-20 bg-blue-500">
+    <div class="flex flex-col justify-center items-center space-y-3">
+      <div class="flex flex-row space-x-2">
+        <DiscardPile />
+        <Deck />
+      </div>
+      <div class="flex flex-col justify-center items-center">
+        Current color:
+        <div
+          class="h-[50px] w-[50px] rounded-[50px] inline-block border-white-100 border-5"
+          :style="{ backgroundColor: color }"
+        ></div>
+      </div>
     </div>
-    <div class="flex flex-col justify-center items-center">
-      Current color:
-      <div
-        class="h-[50px] w-[50px] rounded-[50px] inline-block border-white-100 border-5"
-        :style="{ backgroundColor: color }"
-      ></div>
-    </div>
+    <ActionMessages />
   </div>
 </template>
 
@@ -19,6 +22,7 @@ import DiscardPile from "./DiscardPile.vue";
 import Deck from "./Deck.vue";
 import { useGameStore } from "../stores/gameStore";
 import { computed } from "vue";
+import ActionMessages from "./ActionMessages.vue";
 
 const gameStore = useGameStore();
 
